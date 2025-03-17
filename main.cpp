@@ -18,20 +18,21 @@
 #include <glm/gtx/quaternion.hpp>
 
 #define STB_IMAGE_IMPLEMENTATION
+#include "BezierCurveGenerator.h"
 #include "stb_image.h"
 
 #define BUFFER_OFFSET(i) ((char*)NULL + (i))
 
 using namespace std;
 
-GLuint vao[2];
-GLuint gProgram[2];
+GLuint vao[3];
+GLuint gProgram[3];
 int gWidth, gHeight;
 
-GLint modelingMatrixLoc[2];
-GLint viewingMatrixLoc[2];
-GLint projectionMatrixLoc[2];
-GLint eyePosLoc[2];
+GLint modelingMatrixLoc[3];
+GLint viewingMatrixLoc[3];
+GLint projectionMatrixLoc[3];
+GLint eyePosLoc[3];
 
 glm::mat4 projectionMatrix;
 glm::mat4 viewingMatrix;
@@ -75,14 +76,14 @@ struct Face
 	GLuint vIndex[3], tIndex[3], nIndex[3];
 };
 
-vector<Vertex> gVertices[2];
-vector<Texture> gTextures[2];
-vector<Normal> gNormals[2];
-vector<Face> gFaces[2];
+vector<Vertex> gVertices[3];
+vector<Texture> gTextures[3];
+vector<Normal> gNormals[3];
+vector<Face> gFaces[3];
 
-GLuint gVertexAttribBuffer[2], gIndexBuffer[2];
-GLint gInVertexLoc[2], gInNormalLoc[2];
-int gVertexDataSizeInBytes[2], gNormalDataSizeInBytes[2], gTextureDataSizeInBytes[2];
+GLuint gVertexAttribBuffer[3], gIndexBuffer[3];
+GLint gInVertexLoc[3], gInNormalLoc[3];
+int gVertexDataSizeInBytes[3], gNormalDataSizeInBytes[3], gTextureDataSizeInBytes[3];
 
 bool ParseObj(const string& fileName, int objId)
 {
@@ -291,6 +292,7 @@ void initShaders()
 
 	gProgram[0] = glCreateProgram(); //for armadillo
 	gProgram[1] = glCreateProgram(); //for background quad
+	gProgram[2] = glCreateProgram(); //for curve
 
 	// Create the shaders for both programs
 
@@ -302,6 +304,10 @@ void initShaders()
 	GLuint vs2 = createVS("vert_quad.glsl");
 	GLuint fs2 = createFS("frag_quad.glsl");
 
+	//for background quad
+	GLuint vs3 = createVS("vert2.glsl");
+	GLuint fs3 = createFS("frag2.glsl");
+
 	// Attach the shaders to the programs
 
 	glAttachShader(gProgram[0], vs1);
@@ -309,6 +315,9 @@ void initShaders()
 
 	glAttachShader(gProgram[1], vs2);
 	glAttachShader(gProgram[1], fs2);
+
+	glAttachShader(gProgram[2], vs3);
+	glAttachShader(gProgram[2], fs3);
 
 	// Link the programs
 
@@ -331,9 +340,18 @@ void initShaders()
 		exit(-1);
 	}
 
+	glLinkProgram(gProgram[2]);
+	glGetProgramiv(gProgram[2], GL_LINK_STATUS, &status);
+
+	if (status != GL_TRUE)
+	{
+		cout << "Program link failed" << endl;
+		exit(-1);
+	}
+
 	// Get the locations of the uniform variables from both programs
 
-	for (int i = 0; i < 2; ++i)
+	for (int i = 0; i < 3; ++i)
 	{
 		glUseProgram(gProgram[i]);
 
@@ -439,16 +457,100 @@ void initVBO()
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(gVertexDataSizeInBytes[t]));
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(gVertexDataSizeInBytes[t] + gNormalDataSizeInBytes[t]));
 	}
+
+
+	// VBO for curves
+	glGenVertexArrays(1, &vao[2]);
+	assert(vao[2] > 0);
+
+	glBindVertexArray(vao[2]);
+	cout << "vao = " << vao[2] << endl;
+
+	glEnableVertexAttribArray(0);
+	assert(glGetError() == GL_NONE);
+
+	glGenBuffers(1, &gVertexAttribBuffer[2]);
+	glGenBuffers(1, &gIndexBuffer[2]);
+
+	assert(gVertexAttribBuffer[2] > 0 && gIndexBuffer[2] > 0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, gVertexAttribBuffer[2]);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gIndexBuffer[2]);
+
+	// +4 stands for control points
+	gVertexDataSizeInBytes[2] = (gVertices[2].size() + 4) * 3 * sizeof(GLfloat);
+	int indexDataSizeInBytes = (BezierCurveGenerator::sampleCount + 4) * sizeof(GLuint);
+
+	GLfloat* vertexData = new GLfloat[(gVertices[2].size() + 4) * 3];
+	GLuint* indexData = new GLuint[BezierCurveGenerator::sampleCount + 4];
+
+	float minX = 1e6, maxX = -1e6;
+	float minY = 1e6, maxY = -1e6;
+	float minZ = 1e6, maxZ = -1e6;
+
+	for (int i = 0; i < gVertices[2].size(); ++i)
+	{
+		vertexData[3 * i] = gVertices[2][i].x;
+		vertexData[3 * i + 1] = gVertices[2][i].y;
+		vertexData[3 * i + 2] = gVertices[2][i].z;
+
+		minX = std::min(minX, gVertices[2][i].x);
+		maxX = std::max(maxX, gVertices[2][i].x);
+		minY = std::min(minY, gVertices[2][i].y);
+		maxY = std::max(maxY, gVertices[2][i].y);
+		minZ = std::min(minZ, gVertices[2][i].z);
+		maxZ = std::max(maxZ, gVertices[2][i].z);
+	}
+
+	std::cout << "minX = " << minX << std::endl;
+	std::cout << "maxX = " << maxX << std::endl;
+	std::cout << "minY = " << minY << std::endl;
+	std::cout << "maxY = " << maxY << std::endl;
+	std::cout << "minZ = " << minZ << std::endl;
+	std::cout << "maxZ = " << maxZ << std::endl;
+
+	for (int i = 0; i < BezierCurveGenerator::sampleCount + 4; ++i)
+	{
+		indexData[i] = i;
+	}
+
+
+	glBufferData(GL_ARRAY_BUFFER, gVertexDataSizeInBytes[2], 0, GL_STATIC_DRAW);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, gVertexDataSizeInBytes[2], vertexData);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexDataSizeInBytes, indexData, GL_STATIC_DRAW);
+
+	// done copying; can free now
+	delete[] vertexData;
+	delete[] indexData;
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 }
 
-void init()
+void init(BezierCurveGenerator &bezierCurveGenerator)
 {
-	ParseObj("armadillo.obj", 0);
+	//ParseObj("armadillo.obj", 0);
 	ParseObj("quad.obj", 1);
 
 	glEnable(GL_DEPTH_TEST);
 	initTexture();
 	initShaders();
+
+
+	bezierCurveGenerator.generateRandomCurveCPs();
+	for (auto & currentCurveCoordinate : bezierCurveGenerator.currentCurveCoordinates) {
+		gVertices[2].emplace_back(
+		currentCurveCoordinate.x,
+		currentCurveCoordinate.y,
+		currentCurveCoordinate.z
+		);
+	}
+	for (int i = 0; i < 4; i++) {
+		gVertices[2].emplace_back(
+			bezierCurveGenerator.currentCurveCPsMatrix[i].x,
+			bezierCurveGenerator.currentCurveCPsMatrix[i].y,
+			bezierCurveGenerator.currentCurveCPsMatrix[i].z);
+	}
+
 	initVBO();
 }
 
@@ -473,6 +575,27 @@ void drawScene()
 		if (t == 1)
 			glDepthMask(GL_TRUE);
 	}
+
+	// Draw the curve
+	glUseProgram(gProgram[2]);
+	glUniformMatrix4fv(projectionMatrixLoc[2], 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+	glUniformMatrix4fv(viewingMatrixLoc[2], 1, GL_FALSE, glm::value_ptr(viewingMatrix));
+	glm::mat4 matT = glm::translate(glm::mat4(1.0), glm::vec3(0.0f, 0.0f, -5.0f));
+	glUniformMatrix4fv(modelingMatrixLoc[2], 1, GL_FALSE, glm::value_ptr(matT));
+
+	glBindVertexArray(vao[2]);
+
+	glm::vec4 lineColor(1.0f, 0.0f, 0.0f, 1.0f); // Red color for lines
+	glUniform4fv(glGetUniformLocation(gProgram[2], "color"), 1, &lineColor[0]);
+	glLineWidth(3.0f);
+	glDrawElements(GL_LINE_STRIP, BezierCurveGenerator::sampleCount, GL_UNSIGNED_INT, 0);
+	glLineWidth(1.0f);
+
+	glm::vec4 pointColor(0.0f, 0.0f, 1.0f, 1.0f); // Blue color for points
+	glUniform4fv(glGetUniformLocation(gProgram[2], "color"), 1, &pointColor[0]);
+	glPointSize(5.0f);
+	glDrawElements(GL_POINTS, 4, GL_UNSIGNED_INT, (void*)(100 * sizeof(GLuint)));
+	glPointSize(1.0f);
 }
 
 void display()
@@ -588,10 +711,11 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 	}
 }
 
-void mainLoop(GLFWwindow* window)
+void mainLoop(GLFWwindow* window, BezierCurveGenerator bezierCurveGenerator)
 {
 	while (!glfwWindowShouldClose(window))
 	{
+
 		display();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -639,13 +763,17 @@ int main(int argc, char** argv)   // Create Main Function For Bringing It All To
 	strcat(rendererInfo, (const char*)glGetString(GL_VERSION));
 	glfwSetWindowTitle(window, rendererInfo);
 
-	init();
+	// Create Bezier Curve Generator
+	BezierCurveGenerator bezierCurveGenerator(-1.2f, 1.2f);
+
+	init(bezierCurveGenerator);
 
 	glfwSetKeyCallback(window, keyboard);
 	glfwSetWindowSizeCallback(window, reshape);
 
 	reshape(window, width, height); // need to call this once ourselves
-	mainLoop(window); // this does not return unless the window is closed
+
+	mainLoop(window, bezierCurveGenerator); // this does not return unless the window is closed
 
 	glfwDestroyWindow(window);
 	glfwTerminate();

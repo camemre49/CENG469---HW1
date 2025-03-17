@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o"
+  "CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o.d"
   "CMakeFiles/HW1.dir/main.cpp.o"
   "CMakeFiles/HW1.dir/main.cpp.o.d"
   "HW1"
