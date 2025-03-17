@@ -49,6 +49,9 @@ public:
         INVALID_POSITION, INVALID_POSITION, INVALID_POSITION};
     std::vector<glm::vec3> currentCurveCoordinates;
     int currentTIndex = 0;
+    glm::vec3 currentCurveTangent;
+    glm::vec3 currentUpVector = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 currentLeftVector = glm::vec3(INVALID_POSITION, INVALID_POSITION, INVALID_POSITION);
 
     /**
      * generate random Bezier curve points without any initial and set the private CP member
@@ -66,6 +69,11 @@ public:
      * @return true if buffering the new curve data is needed.
      */
     bool increaseTIndex();
+
+    /**
+     * Calculates the basis matrix for the currently defined Bezier curve control points.
+     */
+    void calculateCurveBasis();
 };
 
 #endif //BEZIERCURVEGENERATOR_H

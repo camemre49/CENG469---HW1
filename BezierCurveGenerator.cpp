@@ -16,6 +16,7 @@ void BezierCurveGenerator::generateRandomCurveCPs() {
     }
     // Restart T index
     currentTIndex = 0;
+    calculateCurveBasis();
 
     // Print the generated control points
     std::cout << "************************************************************************************************************" << std::endl;
@@ -61,6 +62,8 @@ void BezierCurveGenerator::calculateBezierCurveVertices() {
 
 bool BezierCurveGenerator::increaseTIndex() {
     currentTIndex++;
+    calculateCurveBasis();
+
     if (currentTIndex >= sampleCount) {
         currentTIndex = 0;
         generateNextCurveCPs();
@@ -96,6 +99,7 @@ void BezierCurveGenerator::generateNextCurveCPs() {
     for (int i = 0; i < nextCurveCPsMatrix.size(); ++i) {
         currentCurveCPsMatrix[i] = nextCurveCPsMatrix[i];
     }
+    calculateCurveBasis();
     calculateBezierCurveVertices();
 }
 
@@ -108,6 +112,21 @@ float calculateScaleMax(glm::vec3 P0, glm::vec3 lastTangent) {
     } else {
         return (maxVal > 0) ? maxVal / 1.2f : maxVal / -1.2f;
     }
+}
+
+void BezierCurveGenerator::calculateCurveBasis() {
+    if (currentTIndex == 0)
+        currentCurveTangent = normalize(glm::vec3((currentCurveCPsMatrix[1] - currentCurveCPsMatrix[0])));
+    else
+        currentCurveTangent = normalize(glm::vec3((currentCurveCoordinates[currentTIndex] - currentCurveCoordinates[currentTIndex - 1])));
+
+
+    // Update the full basis
+    glm::vec3 newGaze = currentCurveTangent;
+    glm::vec3 newLeft = normalize(glm::cross(currentUpVector, newGaze));
+    glm::vec3 newUp = normalize(glm::cross(newGaze, newLeft));
+    currentUpVector = newUp;
+    currentLeftVector = newLeft;
 }
 
 

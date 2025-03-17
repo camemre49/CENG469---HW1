@@ -153,6 +153,30 @@ BezierCurveGenerator.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HW1.dir/build.make CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.s
 .PHONY : BezierCurveGenerator.cpp.s
 
+BezierMeshGenerator.o: BezierMeshGenerator.cpp.o
+.PHONY : BezierMeshGenerator.o
+
+# target to build an object file
+BezierMeshGenerator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HW1.dir/build.make CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.o
+.PHONY : BezierMeshGenerator.cpp.o
+
+BezierMeshGenerator.i: BezierMeshGenerator.cpp.i
+.PHONY : BezierMeshGenerator.i
+
+# target to preprocess a source file
+BezierMeshGenerator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HW1.dir/build.make CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.i
+.PHONY : BezierMeshGenerator.cpp.i
+
+BezierMeshGenerator.s: BezierMeshGenerator.cpp.s
+.PHONY : BezierMeshGenerator.s
+
+# target to generate assembly for a file
+BezierMeshGenerator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HW1.dir/build.make CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.s
+.PHONY : BezierMeshGenerator.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -189,6 +213,9 @@ help:
 	@echo "... BezierCurveGenerator.o"
 	@echo "... BezierCurveGenerator.i"
 	@echo "... BezierCurveGenerator.s"
+	@echo "... BezierMeshGenerator.o"
+	@echo "... BezierMeshGenerator.i"
+	@echo "... BezierMeshGenerator.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

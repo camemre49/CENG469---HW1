@@ -344,6 +344,7 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
  /usr/include/glm/gtx/component_wise.inl /usr/include/glm/gtx/norm.inl \
  /usr/include/glm/gtx/quaternion.inl \
  /home/emre/Desktop/HW1/BezierCurveGenerator.h \
+ /home/emre/Desktop/HW1/BezierMeshGenerator.h \
  /home/emre/Desktop/HW1/stb_image.h /usr/include/c++/13/stdlib.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/emmintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h \
