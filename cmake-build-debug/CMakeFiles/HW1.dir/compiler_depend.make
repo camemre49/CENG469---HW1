@@ -43,6 +43,8 @@ CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o: /home/emre/Desktop/HW1/BezierCurv
   /usr/include/c++/13/bits/postypes.h \
   /usr/include/c++/13/bits/predefined_ops.h \
   /usr/include/c++/13/bits/ptr_traits.h \
+  /usr/include/c++/13/bits/random.h \
+  /usr/include/c++/13/bits/random.tcc \
   /usr/include/c++/13/bits/range_access.h \
   /usr/include/c++/13/bits/refwrap.h \
   /usr/include/c++/13/bits/requires_hosted.h \
@@ -54,12 +56,14 @@ CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o: /home/emre/Desktop/HW1/BezierCurv
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
+  /usr/include/c++/13/bits/stl_numeric.h \
   /usr/include/c++/13/bits/stl_pair.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
   /usr/include/c++/13/bits/stl_vector.h \
   /usr/include/c++/13/bits/streambuf.tcc \
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/stringfwd.h \
+  /usr/include/c++/13/bits/uniform_int_dist.h \
   /usr/include/c++/13/bits/utility.h \
   /usr/include/c++/13/bits/vector.tcc \
   /usr/include/c++/13/cassert \
@@ -88,7 +92,9 @@ CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o: /home/emre/Desktop/HW1/BezierCurv
   /usr/include/c++/13/istream \
   /usr/include/c++/13/limits \
   /usr/include/c++/13/new \
+  /usr/include/c++/13/numeric \
   /usr/include/c++/13/ostream \
+  /usr/include/c++/13/random \
   /usr/include/c++/13/stdexcept \
   /usr/include/c++/13/streambuf \
   /usr/include/c++/13/string \
@@ -317,6 +323,7 @@ CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o: /home/emre/Desktop/HW1/BezierCurv
   /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/opt_random.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
@@ -877,9 +884,9 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/c++/13/climits:
 
-/usr/include/glm/ext/matrix_float3x2.hpp:
+/usr/include/c++/13/bits/fstream.tcc:
 
-/usr/include/glm/mat4x2.hpp:
+/usr/include/GLFW/glfw3.h:
 
 /usr/include/x86_64-linux-gnu/bits/byteswap.h:
 
@@ -903,10 +910,6 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/glm/detail/func_geometric.inl:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h:
-
-/usr/include/c++/13/bits/stl_iterator.h:
-
 /usr/include/glm/detail/type_vec3.inl:
 
 /usr/include/asm-generic/errno-base.h:
@@ -918,6 +921,10 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 /usr/include/glm/ext/matrix_double4x3.hpp:
 
 /usr/include/glm/detail/type_vec1.hpp:
+
+/usr/include/c++/13/bits/sstream.tcc:
+
+/usr/include/glm/detail/type_mat4x2.inl:
 
 /usr/include/x86_64-linux-gnu/sys/single_threaded.h:
 
@@ -937,13 +944,15 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/glm/detail/type_mat3x3.hpp:
 
-/usr/include/c++/13/bits/postypes.h:
-
 /usr/include/glm/detail/type_mat3x2.hpp:
 
 /usr/include/c++/13/cstdio:
 
 /usr/include/glm/ext/matrix_float3x3_precision.hpp:
+
+/usr/include/c++/13/bits/codecvt.h:
+
+/usr/include/x86_64-linux-gnu/bits/floatn.h:
 
 /usr/include/glm/detail/type_mat2x2.inl:
 
@@ -985,8 +994,6 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/glm/detail/func_common.inl:
 
-/usr/include/glm/ext/matrix_float3x3.hpp:
-
 /usr/include/glm/detail/_fixes.hpp:
 
 /usr/include/glm/glm.hpp:
@@ -1001,17 +1008,13 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/glm/ext/matrix_double4x3_precision.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/floatn.h:
-
-/usr/include/c++/13/bits/codecvt.h:
-
-/usr/include/c++/13/vector:
-
 /usr/include/x86_64-linux-gnu/bits/stdint-least.h:
 
 /usr/include/c++/13/typeinfo:
 
 /usr/include/features.h:
+
+/usr/include/c++/13/bits/stl_numeric.h:
 
 /usr/include/c++/13/type_traits:
 
@@ -1019,17 +1022,21 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/c++/13/cerrno:
 
+/usr/include/c++/13/bits/postypes.h:
+
+/usr/include/c++/13/numeric:
+
+/usr/include/glm/ext/vector_float2_precision.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
+
 /usr/include/c++/13/string:
 
 /usr/include/glm/detail/type_mat2x3.inl:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
 
-/usr/include/glm/ext/vector_float2_precision.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
-
-/usr/include/glm/ext/matrix_float2x3_precision.hpp:
+/usr/include/c++/13/ext/alloc_traits.h:
 
 /usr/include/glm/detail/type_vec3.hpp:
 
@@ -1053,10 +1060,6 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/c++/13/bits/exception_ptr.h:
 
-/usr/include/glm/detail/type_mat4x2.hpp:
-
-/usr/include/glm/ext/matrix_float2x4.hpp:
-
 /usr/include/glm/detail/type_vec4.inl:
 
 /usr/include/glm/detail/compute_vector_relational.hpp:
@@ -1066,6 +1069,8 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 /usr/include/glm/ext/matrix_float2x2_precision.hpp:
 
 /usr/include/c++/13/limits:
+
+/usr/include/c++/13/bits/random.h:
 
 /usr/include/glm/gtc/type_ptr.inl:
 
@@ -1083,6 +1088,10 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/c++/13/bits/alloc_traits.h:
 
+/usr/include/c++/13/vector:
+
+/usr/include/c++/13/bits/uniform_int_dist.h:
+
 /usr/include/c++/13/bits/cpp_type_traits.h:
 
 /usr/include/assert.h:
@@ -1090,8 +1099,6 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 /usr/include/c++/13/cstddef:
 
 /usr/include/c++/13/bits/functional_hash.h:
-
-/usr/include/c++/13/bits/stl_function.h:
 
 /usr/include/glm/ext/vector_uint3_sized.hpp:
 
@@ -1131,10 +1138,6 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/types.h:
 
-/usr/include/c++/13/ext/alloc_traits.h:
-
-/usr/include/glm/ext/matrix_float3x2_precision.hpp:
-
 /usr/include/glm/gtc/matrix_transform.hpp:
 
 /usr/include/c++/13/bits/localefwd.h:
@@ -1147,10 +1150,6 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/c++/13/bits/functexcept.h:
 
-/usr/include/glm/exponential.hpp:
-
-/usr/include/c++/13/bits/move.h:
-
 /usr/include/glm/ext/vector_double1_precision.hpp:
 
 /usr/include/c++/13/bits/ios_base.h:
@@ -1160,6 +1159,16 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 /usr/include/glm/detail/type_mat2x4.inl:
 
 /usr/include/c++/13/bits/locale_classes.tcc:
+
+/usr/include/GL/glu.h:
+
+/usr/include/glm/detail/type_mat4x4.hpp:
+
+/usr/include/c++/13/bits/allocator.h:
+
+/usr/include/glm/ext/matrix_float3x2.hpp:
+
+/usr/include/glm/mat4x2.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
 
@@ -1185,10 +1194,6 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
 
-/usr/include/glm/ext/matrix_double3x2_precision.hpp:
-
-/usr/include/c++/13/bits/stl_uninitialized.h:
-
 /usr/include/glm/detail/func_integer.inl:
 
 /usr/include/glm/mat3x4.hpp:
@@ -1203,11 +1208,17 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/glm/detail/type_mat4x3.hpp:
 
+/usr/include/c++/13/exception:
+
+/usr/include/c++/13/bits/random.tcc:
+
 /usr/include/glm/ext/matrix_float2x2.hpp:
 
 /usr/include/glm/ext/vector_bool1_precision.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
+
+/usr/include/c++/13/bits/stl_function.h:
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
@@ -1238,6 +1249,14 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 /usr/include/features-time64.h:
 
 /usr/include/c++/13/bits/stl_construct.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h:
+
+/usr/include/c++/13/bits/stl_iterator.h:
+
+/usr/include/c++/13/bits/move.h:
+
+/usr/include/glm/exponential.hpp:
 
 /usr/include/c++/13/bits/stl_vector.h:
 
@@ -1279,6 +1298,12 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/c++/13/bits/std_abs.h:
 
+/usr/include/c++/13/bits/stl_uninitialized.h:
+
+/usr/include/glm/ext/matrix_double3x2_precision.hpp:
+
+/usr/include/glm/ext/matrix_float3x3.hpp:
+
 /usr/include/c++/13/clocale:
 
 /usr/include/c++/13/bits/char_traits.h:
@@ -1309,11 +1334,17 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/c++/13/cwctype:
 
-/usr/include/c++/13/exception:
+/usr/include/glm/ext/matrix_float2x3_precision.hpp:
+
+/usr/include/glm/detail/type_mat4x2.hpp:
+
+/usr/include/glm/ext/matrix_float2x4.hpp:
+
+/usr/include/glm/ext/vector_float3.hpp:
 
 /usr/include/glm/ext/matrix_float2x4_precision.hpp:
 
-/usr/include/glm/ext/vector_float3.hpp:
+/usr/include/glm/ext/matrix_float3x2_precision.hpp:
 
 /usr/include/glm/ext/matrix_float3x4_precision.hpp:
 
@@ -1329,9 +1360,13 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/glm/ext/scalar_int_sized.hpp:
 
+/usr/include/x86_64-linux-gnu/c++/13/bits/opt_random.h:
+
 /usr/include/glm/ext/scalar_uint_sized.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
+
+/usr/include/c++/13/random:
 
 /usr/include/glm/ext/vector_bool3_precision.hpp:
 
@@ -1443,10 +1478,6 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/errno.h:
 
-/usr/include/glm/detail/type_mat4x2.inl:
-
-/usr/include/c++/13/bits/sstream.tcc:
-
 /usr/include/glm/ext/vector_double4.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h:
@@ -1461,9 +1492,9 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
 
-/usr/include/x86_64-linux-gnu/bits/mathcalls.h:
-
 /usr/include/c++/13/cassert:
+
+/usr/include/x86_64-linux-gnu/bits/mathcalls.h:
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
@@ -1581,28 +1612,18 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
 
 /usr/include/x86_64-linux-gnu/sys/select.h:
 
-/usr/include/c++/13/bits/locale_facets.tcc:
-
 /usr/include/c++/13/cfloat:
+
+/usr/include/c++/13/bits/locale_facets.tcc:
 
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h:
 
-/usr/include/glm/ext/matrix_float4x4_precision.hpp:
-
-/usr/include/GL/gl.h:
+/usr/include/GL/glew.h:
 
 /home/emre/Desktop/HW1/stb_image.h:
 
-/usr/include/GL/glew.h:
+/usr/include/glm/ext/matrix_float4x4_precision.hpp:
 
-/usr/include/glm/detail/type_mat4x4.hpp:
-
-/usr/include/c++/13/bits/allocator.h:
-
-/usr/include/GL/glu.h:
-
-/usr/include/GLFW/glfw3.h:
-
-/usr/include/c++/13/bits/fstream.tcc:
+/usr/include/GL/gl.h:

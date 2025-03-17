@@ -85,6 +85,10 @@ GLuint gVertexAttribBuffer[3], gIndexBuffer[3];
 GLint gInVertexLoc[3], gInNormalLoc[3];
 int gVertexDataSizeInBytes[3], gNormalDataSizeInBytes[3], gTextureDataSizeInBytes[3];
 
+// Defined variables by me
+BezierCurveGenerator bezierCurveGenerator(-1.2f, 1.2f);
+glm::vec3 objectCenter = glm::vec3(0.0f, 0.0f, 0.0f);
+
 bool ParseObj(const string& fileName, int objId)
 {
 	fstream myfile;
@@ -411,6 +415,12 @@ void initVBO()
 			maxY = std::max(maxY, gVertices[t][i].y);
 			minZ = std::min(minZ, gVertices[t][i].z);
 			maxZ = std::max(maxZ, gVertices[t][i].z);
+
+			if (t == 0) {
+				objectCenter.x = (minX + maxX) / 2;
+				objectCenter.y = (minY + maxY) / 2;
+				objectCenter.z = (minZ + maxZ) / 2;
+			}
 		}
 
 		std::cout << "minX = " << minX << std::endl;
@@ -478,11 +488,11 @@ void initVBO()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gIndexBuffer[2]);
 
 	// +4 stands for control points
-	gVertexDataSizeInBytes[2] = (gVertices[2].size() + 4) * 3 * sizeof(GLfloat);
-	int indexDataSizeInBytes = (BezierCurveGenerator::sampleCount + 4) * sizeof(GLuint);
+	gVertexDataSizeInBytes[2] = (gVertices[2].size() + 5) * 3 * sizeof(GLfloat);
+	int indexDataSizeInBytes = (BezierCurveGenerator::sampleCount + 5) * sizeof(GLuint);
 
-	GLfloat* vertexData = new GLfloat[(gVertices[2].size() + 4) * 3];
-	GLuint* indexData = new GLuint[BezierCurveGenerator::sampleCount + 4];
+	GLfloat* vertexData = new GLfloat[(gVertices[2].size() + 5) * 3];
+	GLuint* indexData = new GLuint[BezierCurveGenerator::sampleCount + 5];
 
 	float minX = 1e6, maxX = -1e6;
 	float minY = 1e6, maxY = -1e6;
@@ -509,7 +519,7 @@ void initVBO()
 	std::cout << "minZ = " << minZ << std::endl;
 	std::cout << "maxZ = " << maxZ << std::endl;
 
-	for (int i = 0; i < BezierCurveGenerator::sampleCount + 4; ++i)
+	for (int i = 0; i < BezierCurveGenerator::sampleCount + 5; ++i)
 	{
 		indexData[i] = i;
 	}
@@ -528,7 +538,7 @@ void initVBO()
 
 void init(BezierCurveGenerator &bezierCurveGenerator)
 {
-	//ParseObj("armadillo.obj", 0);
+	ParseObj("armadillo.obj", 0);
 	ParseObj("quad.obj", 1);
 
 	glEnable(GL_DEPTH_TEST);
@@ -550,6 +560,11 @@ void init(BezierCurveGenerator &bezierCurveGenerator)
 			bezierCurveGenerator.currentCurveCPsMatrix[i].y,
 			bezierCurveGenerator.currentCurveCPsMatrix[i].z);
 	}
+
+	gVertices[2].emplace_back(
+			bezierCurveGenerator.currentCurveCPsMatrix[0].x,
+			bezierCurveGenerator.currentCurveCPsMatrix[0].y,
+			bezierCurveGenerator.currentCurveCPsMatrix[0].z);
 
 	initVBO();
 }
@@ -596,6 +611,12 @@ void drawScene()
 	glPointSize(5.0f);
 	glDrawElements(GL_POINTS, 4, GL_UNSIGNED_INT, (void*)(100 * sizeof(GLuint)));
 	glPointSize(1.0f);
+
+	glm::vec4 positionColor(0.0f, 1.0f, 0.0f, 1.0f); // Blue color for points
+	glUniform4fv(glGetUniformLocation(gProgram[2], "color"), 1, &positionColor[0]);
+	glPointSize(15.0f);
+	glDrawElements(GL_POINTS, 1, GL_UNSIGNED_INT, (void*)(104 * sizeof(GLuint)));
+	glPointSize(1.0f);
 }
 
 void display()
@@ -613,15 +634,18 @@ void display()
 
 	//modelingMatrix = glm::translate(glm::mat4(1.0), glm::vec3(0.0f, -0.4f, -5.0f));
 	//modelingMatrix = glm::rotate(modelingMatrix, angleRad, glm::vec3(0.0, 1.0, 0.0));
-	glm::mat4 matT = glm::translate(glm::mat4(1.0), glm::vec3(-0.5f, -0.4f, -5.0f));   // same as above but more clear
+	glm::vec3 translationVector = bezierCurveGenerator.currentCurveCoordinates[bezierCurveGenerator.currentTIndex] - objectCenter;
+	translationVector += glm::vec3(0.0f, 0.3f, -5.0f);
+	glm::mat4 matT = glm::translate(glm::mat4(1.0),translationVector);
 	//glm::mat4 matR = glm::rotate(glm::mat4(1.0), angleRad, glm::vec3(0.0, 1.0, 0.0));
-	glm::mat4 matRx = glm::rotate<float>(glm::mat4(1.0), (-90. / 180.) * M_PI, glm::vec3(1.0, 0.0, 0.0));
-	glm::mat4 matRy = glm::rotate<float>(glm::mat4(1.0), (-90. / 180.) * M_PI, glm::vec3(0.0, 1.0, 0.0));
-	glm::mat4 matRz = glm::rotate<float>(glm::mat4(1.0), angleRad, glm::vec3(0.0, 0.0, 1.0));
-	modelingMatrix = matRy * matRx;
+	//glm::mat4 matRx = glm::rotate<float>(glm::mat4(1.0), (-90. / 180.) * M_PI, glm::vec3(1.0, 0.0, 0.0));
+	//glm::mat4 matRy = glm::rotate<float>(glm::mat4(1.0), (-90. / 180.) * M_PI, glm::vec3(0.0, 1.0, 0.0));
+	//glm::mat4 matRz = glm::rotate<float>(glm::mat4(1.0), angleRad, glm::vec3(0.0, 0.0, 1.0));
+	//modelingMatrix = matRy * matRx;
+	modelingMatrix = glm::mat4(1.0f);
 
 	// Scale the object.
-	glm::vec3 scaleFactors(0.5f, 0.5f, 0.5f);;
+	glm::vec3 scaleFactors(0.15f, 0.15f, 0.15f);;
 	glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0), scaleFactors);
 	modelingMatrix = scaleMatrix * modelingMatrix;
 
@@ -659,7 +683,8 @@ void display()
 	glm::quat rollQuat(cos(rollRad / 2), sint * q.x, sint * q.y, sint * q.z);
 	glm::quat pitchQuat(cos(pitchRad / 2), 0, 0, 1 * sin(pitchRad / 2));
 	//modelingMatrix = matT * glm::toMat4(pitchQuat) * glm::toMat4(rollQuat) * modelingMatrix;
-	modelingMatrix = matT * glm::toMat4(rollQuat) * glm::toMat4(pitchQuat) * modelingMatrix; // roll is based on pitch
+	// modelingMatrix = matT * glm::toMat4(rollQuat) * glm::toMat4(pitchQuat) * modelingMatrix; // roll is based on pitch
+	modelingMatrix = matT * modelingMatrix;
 
 	//cout << rollQuat.w << " " << rollQuat.x << " " << rollQuat.y << " " << rollQuat.z << endl;
 
@@ -711,14 +736,48 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 	}
 }
 
-void mainLoop(GLFWwindow* window, BezierCurveGenerator bezierCurveGenerator)
+void updateObjectPosition() {
+	static int frameCounter = 0;
+	int updateRate = 4;
+
+	if (frameCounter++ % updateRate != 0) {
+		return; // Skip updates to slow down motion
+	}
+
+	glm::vec3 newPosition(
+		bezierCurveGenerator.currentCurveCoordinates[bezierCurveGenerator.currentTIndex].x,
+		bezierCurveGenerator.currentCurveCoordinates[bezierCurveGenerator.currentTIndex].y,
+		bezierCurveGenerator.currentCurveCoordinates[bezierCurveGenerator.currentTIndex].z);
+
+	glBindBuffer(GL_ARRAY_BUFFER, gVertexAttribBuffer[2]);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gIndexBuffer[2]);
+	glBufferSubData(GL_ARRAY_BUFFER, 104 * 3 * sizeof(GL_FLOAT), 3 * sizeof(GL_FLOAT), glm::value_ptr(newPosition));
+
+	// If the current curve is traveled fully, generate and store new curve information
+	if (bezierCurveGenerator.increaseTIndex()) {
+		glBufferSubData(
+			GL_ARRAY_BUFFER,
+			0,
+			100 * 3 * sizeof(GL_FLOAT),
+			bezierCurveGenerator.currentCurveCoordinates.data());
+
+		glBufferSubData(
+			GL_ARRAY_BUFFER,
+			100 * 3 * sizeof(GL_FLOAT),
+			4 * 3 * sizeof(GL_FLOAT),
+			glm::value_ptr(bezierCurveGenerator.currentCurveCPsMatrix));
+	}
+}
+
+void mainLoop(GLFWwindow* window)
 {
 	while (!glfwWindowShouldClose(window))
 	{
-
 		display();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+
+		updateObjectPosition();
 	}
 }
 
@@ -763,9 +822,6 @@ int main(int argc, char** argv)   // Create Main Function For Bringing It All To
 	strcat(rendererInfo, (const char*)glGetString(GL_VERSION));
 	glfwSetWindowTitle(window, rendererInfo);
 
-	// Create Bezier Curve Generator
-	BezierCurveGenerator bezierCurveGenerator(-1.2f, 1.2f);
-
 	init(bezierCurveGenerator);
 
 	glfwSetKeyCallback(window, keyboard);
@@ -773,7 +829,7 @@ int main(int argc, char** argv)   // Create Main Function For Bringing It All To
 
 	reshape(window, width, height); // need to call this once ourselves
 
-	mainLoop(window, bezierCurveGenerator); // this does not return unless the window is closed
+	mainLoop(window); // this does not return unless the window is closed
 
 	glfwDestroyWindow(window);
 	glfwTerminate();

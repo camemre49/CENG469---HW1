@@ -1,7 +1,8 @@
 #include "BezierCurveGenerator.h"
 #include <iostream>
+#include <random>
 
-float generateRandomFloat(float min, float max);
+inline float generateRandomFloat(float min, float max);
 void BezierCurveGenerator::generateRandomCurveCPs() {
     // Seed the random number generator with the current time
     srand(static_cast<unsigned int>(time(nullptr)));
@@ -30,11 +31,20 @@ void BezierCurveGenerator::generateRandomCurveCPs() {
 }
 
 // Helper function to generate random float values within a given range
-float generateRandomFloat(float min, float max) {
+inline float generateRandomFloat(float min, float max) {
     return min + static_cast<float>(random()) / (RAND_MAX / (max - min));
 }
 
+// Function to generate a random float within a given range
+float randomFloat(float min, float max) {
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> dist(min, max);
+    return dist(gen);
+}
+
 void BezierCurveGenerator::calculateBezierCurveVertices() {
+    currentCurveCoordinates.clear();
     float currentT = 0.0f;
     float stepSize = 1.0f / (sampleCount - 1);
     for (int i = 0; i < sampleCount; ++i) {
@@ -48,5 +58,57 @@ void BezierCurveGenerator::calculateBezierCurveVertices() {
         currentT += stepSize;
     }
 }
+
+bool BezierCurveGenerator::increaseTIndex() {
+    currentTIndex++;
+    if (currentTIndex >= sampleCount) {
+        currentTIndex = 0;
+        generateNextCurveCPs();
+        return true;
+    }
+
+    return false;
+}
+
+float calculateScaleMax(glm::vec3 P0, glm::vec3 lastTangent);
+void BezierCurveGenerator::generateNextCurveCPs() {
+    std::vector<glm::vec3> nextCurveCPsMatrix;
+
+    // Ensure C1 continuity: The first control point of the new curve is the last point of the previous curve
+    glm::vec3 P0 = currentCurveCPsMatrix[3];  // Last control point of the previous curve
+    nextCurveCPsMatrix.push_back(P0);
+
+    // C1 Continuity: P1 should maintain the direction of the last segment (P3 - P2)
+    glm::vec3 lastTangent = currentCurveCPsMatrix[3] - currentCurveCPsMatrix[2];
+    float scaleFactor = randomFloat(0.5f, calculateScaleMax(P0, lastTangent));
+    glm::vec3 P1 = P0 + lastTangent * scaleFactor;
+    nextCurveCPsMatrix.push_back(P1);
+
+    // Generate P2 and P3 randomly
+    for (int i = 0; i < 2; ++i) {
+        float x = generateRandomFloat(curveBounds.minX, curveBounds.maxX);
+        float y = generateRandomFloat(curveBounds.minY, curveBounds.maxY);
+        float z = generateRandomFloat(curveBounds.minZ, curveBounds.maxZ);
+        nextCurveCPsMatrix.emplace_back(glm::vec3(x, y, z));
+    }
+
+    // Update the control points and recalculate the curve
+    for (int i = 0; i < nextCurveCPsMatrix.size(); ++i) {
+        currentCurveCPsMatrix[i] = nextCurveCPsMatrix[i];
+    }
+    calculateBezierCurveVertices();
+}
+
+// Helper function to compute scaling factor based on the max value and range [-1.2, 1.2]
+float calculateScaleMax(glm::vec3 P0, glm::vec3 lastTangent) {
+    float maxVal = std::max(P0.x + lastTangent.x, std::max(P0.y + lastTangent.y, P0.z + lastTangent.z));
+
+    if (maxVal > 1.2f || maxVal < -1.2f) {
+        return (maxVal > 0) ? 1.2f / maxVal : -1.2f / maxVal;
+    } else {
+        return (maxVal > 0) ? maxVal / 1.2f : maxVal / -1.2f;
+    }
+}
+
 
 

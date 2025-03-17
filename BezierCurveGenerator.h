@@ -26,6 +26,11 @@ private:
         -3, 3, 0, 0,
         1, 0, 0, 0);
 
+    /**
+     * Generates the next curve by using the previous curve
+     */
+    void generateNextCurveCPs();
+
 // Constructors
 public:
     BezierCurveGenerator(float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
@@ -54,6 +59,13 @@ public:
      * Generate 100 vertices for curve generation
      */
     void calculateBezierCurveVertices();
+
+    /**
+     * Increase the T index by preserving the range
+     *
+     * @return true if buffering the new curve data is needed.
+     */
+    bool increaseTIndex();
 };
 
 #endif //BEZIERCURVEGENERATOR_H
