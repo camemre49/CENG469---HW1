@@ -88,7 +88,7 @@ int gVertexDataSizeInBytes[3], gNormalDataSizeInBytes[3], gTextureDataSizeInByte
 
 // Defined variables by me
 BezierCurveGenerator bezierCurveGenerator(-1.2f, 1.2f);
-BezierMeshGenerator bezierMeshGenerator();
+BezierMeshGenerator bezierMeshGenerator("plane.obj");
 glm::vec3 objectCenter = glm::vec3(0.0f, 0.0f, 0.0f);
 
 // 4 Beizer Points
@@ -801,6 +801,8 @@ void mainLoop(GLFWwindow* window)
 
 int main(int argc, char** argv)   // Create Main Function For Bringing It All Together
 {
+	bezierMeshGenerator.generateObjectToFile();
+	exit(-1);
 	GLFWwindow* window;
 	if (!glfwInit())
 	{

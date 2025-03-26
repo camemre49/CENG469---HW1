@@ -36,3 +36,4 @@ P = {
 
 % Call the function with multiple control point sets
 bezierSurface(P, 50, 20);
+printBezierPoints(P);

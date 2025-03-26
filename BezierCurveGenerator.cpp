@@ -1,4 +1,6 @@
 #include "BezierCurveGenerator.h"
+
+#include <iomanip>
 #include <iostream>
 #include <random>
 
@@ -127,6 +129,54 @@ void BezierCurveGenerator::calculateCurveBasis() {
     glm::vec3 newUp = normalize(glm::cross(newGaze, newLeft));
     currentUpVector = newUp;
     currentLeftVector = newLeft;
+}
+
+std::vector<glm::vec3> BezierCurveGenerator::calculateBezierCurveVerticesByPoints(std::vector<glm::vec3>& controlPoints, int sampleCount) {
+    float currentT = 0.0f;
+    float stepSize = 1.0f / (sampleCount - 1);
+    std::vector<glm::vec3> currentCurveCoordinates;
+
+    glm::mat4x3 controlPointsMatrix(
+        controlPoints[0],
+        controlPoints[1],
+        controlPoints[2],
+        controlPoints[3]
+        );
+
+    for (int i = 0; i < sampleCount; ++i) {
+        // Compute the Bezier curve equation using Bernstein polynomials for cubic Bezier
+        glm::vec3 P = glm::vec3(pow(1 - currentT, 3)) * controlPointsMatrix[0] +
+                      glm::vec3(3 * pow(1 - currentT, 2) * currentT) * controlPointsMatrix[1] +
+                      glm::vec3(3 * (1 - currentT) * pow(currentT, 2)) * controlPointsMatrix[2] +
+                      glm::vec3(pow(currentT, 3)) * controlPointsMatrix[3];
+
+        currentCurveCoordinates.emplace_back(P.x, P.y, P.z);
+        currentT += stepSize;
+    }
+
+    return currentCurveCoordinates;
+}
+
+
+void BezierCurveGenerator::printCurveVertices(std::vector<glm::vec3>& curveVertices) {
+    std::cout << "\nGenerated Bézier Curve Points:\n";
+    std::cout << "------------------------------\n";
+
+    // Set output precision
+    std::cout << std::fixed << std::setprecision(4);
+
+    for (size_t i = 0; i < curveVertices.size(); ++i) {
+        const auto& point = curveVertices[i];
+
+        std::cout << "[" << std::setw(3) << i << "] ";
+
+        std::cout << "X: " << std::setw(8) << point.x
+                  << "  Y: " << std::setw(8) << point.y
+                  << "  Z: " << std::setw(8) << point.z << "\n";
+    }
+
+    std::cout << "Total points: " << curveVertices.size() << "\n";
+    std::cout << "------------------------------\n";
 }
 
 

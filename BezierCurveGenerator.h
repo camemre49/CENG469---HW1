@@ -74,6 +74,16 @@ public:
      * Calculates the basis matrix for the currently defined Bezier curve control points.
      */
     void calculateCurveBasis();
+
+    /**
+     * 
+     * @param controlPoints 
+     * @param sampleCount 
+     * @return 
+     */
+    static std::vector<glm::vec3> calculateBezierCurveVerticesByPoints(std::vector<glm::vec3>& controlPoints, int sampleCount);
+
+    static void printCurveVertices(std::vector<glm::vec3>& controlPoints);
 };
 
 #endif //BEZIERCURVEGENERATOR_H
