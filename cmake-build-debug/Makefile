@@ -153,29 +153,29 @@ BezierCurveGenerator.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HW1.dir/build.make CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.s
 .PHONY : BezierCurveGenerator.cpp.s
 
-BezierMeshGenerator.o: BezierMeshGenerator.cpp.o
-.PHONY : BezierMeshGenerator.o
+PlaneMeshGenerator.o: PlaneMeshGenerator.cpp.o
+.PHONY : PlaneMeshGenerator.o
 
 # target to build an object file
-BezierMeshGenerator.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/HW1.dir/build.make CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.o
-.PHONY : BezierMeshGenerator.cpp.o
+PlaneMeshGenerator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HW1.dir/build.make CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o
+.PHONY : PlaneMeshGenerator.cpp.o
 
-BezierMeshGenerator.i: BezierMeshGenerator.cpp.i
-.PHONY : BezierMeshGenerator.i
+PlaneMeshGenerator.i: PlaneMeshGenerator.cpp.i
+.PHONY : PlaneMeshGenerator.i
 
 # target to preprocess a source file
-BezierMeshGenerator.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/HW1.dir/build.make CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.i
-.PHONY : BezierMeshGenerator.cpp.i
+PlaneMeshGenerator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HW1.dir/build.make CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.i
+.PHONY : PlaneMeshGenerator.cpp.i
 
-BezierMeshGenerator.s: BezierMeshGenerator.cpp.s
-.PHONY : BezierMeshGenerator.s
+PlaneMeshGenerator.s: PlaneMeshGenerator.cpp.s
+.PHONY : PlaneMeshGenerator.s
 
 # target to generate assembly for a file
-BezierMeshGenerator.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/HW1.dir/build.make CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.s
-.PHONY : BezierMeshGenerator.cpp.s
+PlaneMeshGenerator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HW1.dir/build.make CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.s
+.PHONY : PlaneMeshGenerator.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -213,9 +213,9 @@ help:
 	@echo "... BezierCurveGenerator.o"
 	@echo "... BezierCurveGenerator.i"
 	@echo "... BezierCurveGenerator.s"
-	@echo "... BezierMeshGenerator.o"
-	@echo "... BezierMeshGenerator.i"
-	@echo "... BezierMeshGenerator.s"
+	@echo "... PlaneMeshGenerator.o"
+	@echo "... PlaneMeshGenerator.i"
+	@echo "... PlaneMeshGenerator.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

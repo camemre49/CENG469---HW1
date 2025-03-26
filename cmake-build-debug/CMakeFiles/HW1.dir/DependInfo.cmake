@@ -9,7 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/emre/Desktop/HW1/BezierCurveGenerator.cpp" "CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o" "gcc" "CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o.d"
-  "/home/emre/Desktop/HW1/BezierMeshGenerator.cpp" "CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.o" "gcc" "CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.o.d"
+  "/home/emre/Desktop/HW1/PlaneMeshGenerator.cpp" "CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o" "gcc" "CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o.d"
   "/home/emre/Desktop/HW1/main.cpp" "CMakeFiles/HW1.dir/main.cpp.o" "gcc" "CMakeFiles/HW1.dir/main.cpp.o.d"
   )
 

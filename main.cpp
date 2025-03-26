@@ -19,7 +19,7 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "BezierCurveGenerator.h"
-#include "BezierMeshGenerator.h"
+#include "PlaneMeshGenerator.h"
 #include "stb_image.h"
 
 #define BUFFER_OFFSET(i) ((char*)NULL + (i))
@@ -88,13 +88,14 @@ int gVertexDataSizeInBytes[3], gNormalDataSizeInBytes[3], gTextureDataSizeInByte
 
 // Defined variables by me
 BezierCurveGenerator bezierCurveGenerator(-1.2f, 1.2f);
-BezierMeshGenerator bezierMeshGenerator("plane.obj");
+PlaneMeshGenerator bezierMeshGenerator("plane.obj");
 glm::vec3 objectCenter = glm::vec3(0.0f, 0.0f, 0.0f);
 
 // 4 Beizer Points
 // 1 Point to move along the curve
 // 1 Point to draw curve tangent
-unsigned long extraVertexCoordinateNumber = 6;
+// 2 Point to draw up vector
+unsigned long extraVertexCoordinateNumber = 8;
 
 bool ParseObj(const string& fileName, int objId)
 {
@@ -423,11 +424,11 @@ void initVBO()
 			minZ = std::min(minZ, gVertices[t][i].z);
 			maxZ = std::max(maxZ, gVertices[t][i].z);
 
-			if (t == 0) {
-				objectCenter.x = (minX + maxX) / 2;
-				objectCenter.y = (minY + maxY) / 2;
-				objectCenter.z = (minZ + maxZ) / 2;
-			}
+			//if (t == 0) {
+				//objectCenter.x = (minX + maxX) / 2;
+				//objectCenter.y = (minY + maxY) / 2;
+				//objectCenter.z = (minZ + maxZ) / 2;
+			//}
 		}
 
 		std::cout << "minX = " << minX << std::endl;
@@ -545,7 +546,7 @@ void initVBO()
 
 void init(BezierCurveGenerator &bezierCurveGenerator)
 {
-	ParseObj("bunny.obj", 0);
+	ParseObj("plane.obj", 0);
 	ParseObj("quad.obj", 1);
 
 	glEnable(GL_DEPTH_TEST);
@@ -634,6 +635,7 @@ void drawScene()
 	glUniform4fv(glGetUniformLocation(gProgram[2], "color"), 1, &tangentColor[0]);
 	glLineWidth(3.0f);
 	glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, (void*)(104 * sizeof(GLuint)));
+	glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, (void*)(106 * sizeof(GLuint)));
 	glLineWidth(1.0f);
 }
 
@@ -768,8 +770,12 @@ void updateObjectPosition() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gIndexBuffer[2]);
 	glBufferSubData(GL_ARRAY_BUFFER, 104 * 3 * sizeof(GL_FLOAT), 3 * sizeof(GL_FLOAT), glm::value_ptr(newPosition));
 
-	glm::vec3 tangentHead = newPosition + (bezierCurveGenerator.currentCurveTangent * 0.3f);
+	glm::vec3 tangentHead = newPosition + (bezierCurveGenerator.currentCurveTangent * 0.5f);
 	glBufferSubData(GL_ARRAY_BUFFER, 105 * 3 * sizeof(GL_FLOAT), 3 * sizeof(GL_FLOAT), glm::value_ptr(tangentHead));
+
+	glm::vec3 upHead = newPosition + (bezierCurveGenerator.currentUpVector * 0.3f);
+	glBufferSubData(GL_ARRAY_BUFFER, 106 * 3 * sizeof(GL_FLOAT), 3 * sizeof(GL_FLOAT), glm::value_ptr(bezierCurveGenerator.currentCurveCoordinates[bezierCurveGenerator.currentTIndex]));
+	glBufferSubData(GL_ARRAY_BUFFER, 107 * 3 * sizeof(GL_FLOAT), 3 * sizeof(GL_FLOAT), glm::value_ptr(upHead));
 
 	// If the current curve is traveled fully, generate and store new curve information
 	if (bezierCurveGenerator.increaseTIndex()) {
@@ -801,8 +807,8 @@ void mainLoop(GLFWwindow* window)
 
 int main(int argc, char** argv)   // Create Main Function For Bringing It All Together
 {
-	bezierMeshGenerator.generateObjectToFile();
-	exit(-1);
+	bezierMeshGenerator.calculateAllBezierSurfaceVertices();
+
 	GLFWwindow* window;
 	if (!glfwInit())
 	{
@@ -867,19 +873,25 @@ void updateMeshModelingMatrix() {
 	modelingMatrix = glm::mat4(1.0f);
 
 	// Scale the object
-	glm::vec3 scaleFactors(0.15f, 0.15f, 0.15f);
+	glm::vec3 scaleFactors(0.03f, 0.03f, 0.03f);
 	glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), scaleFactors);
+
+	// Add 180-degree rotation around Y-axis since the object is looking opposite direction
+	float rotationAngle = glm::radians(180.0f);
+	glm::mat4 flipMatrix = glm::rotate(glm::mat4(1.0f), rotationAngle,
+									 glm::vec3(0.0f, 1.0f, 0.0f)); // Rotate around Y-axis
 
 	// Construct the rotation matrix (basis transformation)
 	glm::mat4 rotationMatrix = glm::mat4(1.0f);
 	rotationMatrix[0] = glm::vec4(bezierCurveGenerator.currentLeftVector, 0.0f);  // X-axis
-	rotationMatrix[1] = glm::vec4(bezierCurveGenerator.currentUpVector, 0.0f);    // Y-axis
+	rotationMatrix[1] = glm::vec4(-bezierCurveGenerator.currentUpVector, 0.0f);    // Y-axis
 	rotationMatrix[2] = glm::vec4(bezierCurveGenerator.currentCurveTangent, 0.0f); // Z-axis
 	rotationMatrix[3] = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f); // Homogeneous coordinates
 
+
 	// Compute the translation vector
 	glm::vec3 translationVector = bezierCurveGenerator.currentCurveCoordinates[bezierCurveGenerator.currentTIndex] - objectCenter;
-	translationVector += glm::vec3(-0.33681, 1.203084f, -5.0f);
+	translationVector += glm::vec3(0, 0, -5);
 	glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), translationVector);
 
 	// Roll the object alternatively by using quaternions
@@ -892,6 +904,6 @@ void updateMeshModelingMatrix() {
 	if (time > 10.0f) time = 0.0f;
 
 	// Apply the roll transformation to the modeling matrix
-	modelingMatrix = translationMatrix * rollMatrix * rotationMatrix * scaleMatrix;
+	modelingMatrix = translationMatrix * rollMatrix * rotationMatrix * flipMatrix * scaleMatrix;
 }
 

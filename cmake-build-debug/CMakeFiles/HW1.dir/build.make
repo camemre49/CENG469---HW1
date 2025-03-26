@@ -97,32 +97,32 @@ CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/emre/Desktop/HW1/BezierCurveGenerator.cpp -o CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.s
 
-CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.o: CMakeFiles/HW1.dir/flags.make
-CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.o: /home/emre/Desktop/HW1/BezierMeshGenerator.cpp
-CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.o: CMakeFiles/HW1.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/emre/Desktop/HW1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.o -MF CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.o.d -o CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.o -c /home/emre/Desktop/HW1/BezierMeshGenerator.cpp
+CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o: CMakeFiles/HW1.dir/flags.make
+CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o: /home/emre/Desktop/HW1/PlaneMeshGenerator.cpp
+CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o: CMakeFiles/HW1.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/emre/Desktop/HW1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o -MF CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o.d -o CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o -c /home/emre/Desktop/HW1/PlaneMeshGenerator.cpp
 
-CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/emre/Desktop/HW1/BezierMeshGenerator.cpp > CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.i
+CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/emre/Desktop/HW1/PlaneMeshGenerator.cpp > CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.i
 
-CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/emre/Desktop/HW1/BezierMeshGenerator.cpp -o CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.s
+CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/emre/Desktop/HW1/PlaneMeshGenerator.cpp -o CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.s
 
 # Object files for target HW1
 HW1_OBJECTS = \
 "CMakeFiles/HW1.dir/main.cpp.o" \
 "CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o" \
-"CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.o"
+"CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o"
 
 # External object files for target HW1
 HW1_EXTERNAL_OBJECTS =
 
 HW1: CMakeFiles/HW1.dir/main.cpp.o
 HW1: CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o
-HW1: CMakeFiles/HW1.dir/BezierMeshGenerator.cpp.o
+HW1: CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o
 HW1: CMakeFiles/HW1.dir/build.make
 HW1: /usr/lib/x86_64-linux-gnu/libGLEW.so
 HW1: /usr/lib/x86_64-linux-gnu/libglfw.so.3.3
