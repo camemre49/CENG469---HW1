@@ -17,6 +17,7 @@ uniform mat4 modelingMatrix;
 uniform mat4 viewingMatrix;
 uniform mat4 projectionMatrix;
 uniform vec3 eyePos;
+uniform bool isWireframeMode;
 
 layout(location=0) in vec3 inVertex;
 layout(location=1) in vec3 inNormal;
@@ -26,37 +27,42 @@ out vec4 color;
 
 void main(void)
 {
-	// First, convert to world coordinates. This is where
-	// lighting computations must be performed. inVertex
-	// is NOT in homogeneous coordinates. inNormal has three
-	// components. For computing the normal transformation
-	// matrix we use the upper 3x3 part of the modeling
-	// matrix.
-	 
-	vec4 pWorld = modelingMatrix * vec4(inVertex, 1);
-	vec3 nWorld = inverse(transpose(mat3x3(modelingMatrix))) * inNormal;
+	if(isWireframeMode) {
+		color = vec4(1.0, 1.0, 1.0, 1.0);
+	}
+	else {
+		// First, convert to world coordinates. This is where
+		// lighting computations must be performed. inVertex
+		// is NOT in homogeneous coordinates. inNormal has three
+		// components. For computing the normal transformation
+		// matrix we use the upper 3x3 part of the modeling
+		// matrix.
 
-	// Compute lighting. We assume lightPos and eyePos are in world
-	// coordinates.
+		vec4 pWorld = modelingMatrix * vec4(inVertex, 1);
+		vec3 nWorld = inverse(transpose(mat3x3(modelingMatrix))) * inNormal;
 
-	vec3 L = normalize(lightPos - vec3(pWorld));
-	vec3 V = normalize(eyePos - vec3(pWorld));
-	vec3 H = normalize(L + V);
-	vec3 N = normalize(nWorld);
+		// Compute lighting. We assume lightPos and eyePos are in world
+		// coordinates.
 
-	float NdotL = dot(N, L); // for diffuse component
-	float NdotH = dot(N, H); // for specular component
+		vec3 L = normalize(lightPos - vec3(pWorld));
+		vec3 V = normalize(eyePos - vec3(pWorld));
+		vec3 H = normalize(L + V);
+		vec3 N = normalize(nWorld);
 
-	vec3 diffuseColor = I * kd * max(0, NdotL);
-	vec3 specularColor = I * ks * pow(max(0, NdotH), 100);
-	vec3 ambientColor = Iamb * ka;
+		float NdotL = dot(N, L); // for diffuse component
+		float NdotH = dot(N, H); // for specular component
 
-	// We update the front color of the vertex. This value will be sent
-	// to the fragment shader after it is interpolated at every fragment.
-	// Front color specifies the color of a vertex for a front facing
-	// primitive.
+		vec3 diffuseColor = I * kd * max(0, NdotL);
+		vec3 specularColor = I * ks * pow(max(0, NdotH), 100);
+		vec3 ambientColor = Iamb * ka;
 
-	color = vec4(diffuseColor + specularColor + ambientColor, 1);
+		// We update the front color of the vertex. This value will be sent
+		// to the fragment shader after it is interpolated at every fragment.
+		// Front color specifies the color of a vertex for a front facing
+		// primitive.
+
+		color = vec4(diffuseColor + specularColor + ambientColor, 1);
+	}
 
 	// Transform the vertex with the product of the projection, viewing, and
 	// modeling matrices.

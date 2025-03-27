@@ -87,9 +87,13 @@ GLint gInVertexLoc[3], gInNormalLoc[3];
 int gVertexDataSizeInBytes[3], gNormalDataSizeInBytes[3], gTextureDataSizeInBytes[3];
 
 // Defined variables by me
-BezierCurveGenerator bezierCurveGenerator(-1.2f, 1.2f);
+BezierCurveGenerator bezierCurveGenerator(-1.2f, 1.2f, -1.2f, 1.2f, -5.0f, 1.2f);
 PlaneMeshGenerator bezierMeshGenerator("plane.obj");
 glm::vec3 objectCenter = glm::vec3(0.0f, 0.0f, 0.0f);
+bool shouldStop = false;
+bool shouldDrawCurve = false;
+bool isWireframeMode = false;
+GLint wireframeLoc;
 
 // 4 Beizer Points
 // 1 Point to move along the curve
@@ -372,6 +376,8 @@ void initShaders()
 		projectionMatrixLoc[i] = glGetUniformLocation(gProgram[i], "projectionMatrix");
 		eyePosLoc[i] = glGetUniformLocation(gProgram[i], "eyePos");
 	}
+
+	wireframeLoc = glGetUniformLocation(gProgram[0], "isWireframeMode");
 }
 
 void initVBO()
@@ -598,8 +604,17 @@ void drawScene()
 		if (t == 1)
 			glDepthMask(GL_FALSE);
 
+		if (t == 0) {
+			if (isWireframeMode) {
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Wireframe mode
+				glUniform1i(wireframeLoc, 1);
+			} else {
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Solid mode
+				glUniform1i(wireframeLoc, 0);
+			}
+		}
 		glDrawElements(GL_TRIANGLES, gFaces[t].size() * 3, GL_UNSIGNED_INT, 0);
-
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Go back to solid mode
 		if (t == 1)
 			glDepthMask(GL_TRUE);
 	}
@@ -613,30 +628,28 @@ void drawScene()
 
 	glBindVertexArray(vao[2]);
 
-	glm::vec4 lineColor(1.0f, 0.0f, 0.0f, 1.0f); // Red color for lines
-	glUniform4fv(glGetUniformLocation(gProgram[2], "color"), 1, &lineColor[0]);
-	glLineWidth(3.0f);
-	glDrawElements(GL_LINE_STRIP, BezierCurveGenerator::sampleCount, GL_UNSIGNED_INT, 0);
-	glLineWidth(1.0f);
+	if (!shouldDrawCurve) {
+		glm::vec4 lineColor(0.0f, 1.0f, 0.0f, 1.0f); // Green color for curves
+		glUniform4fv(glGetUniformLocation(gProgram[2], "color"), 1, &lineColor[0]);
+		glDrawElements(GL_LINE_STRIP, BezierCurveGenerator::sampleCount, GL_UNSIGNED_INT, 0);
 
-	glm::vec4 pointColor(0.0f, 0.0f, 1.0f, 1.0f); // Blue color for points
-	glUniform4fv(glGetUniformLocation(gProgram[2], "color"), 1, &pointColor[0]);
-	glPointSize(5.0f);
-	glDrawElements(GL_POINTS, 4, GL_UNSIGNED_INT, (void*)(100 * sizeof(GLuint)));
-	glPointSize(1.0f);
+		glm::vec4 pointColor(0.0f, 1.0f, 1.0f, 1.0f); // Blue color for points
+		glUniform4fv(glGetUniformLocation(gProgram[2], "color"), 1, &pointColor[0]);
+		glPointSize(5.0f);
+		glDrawElements(GL_POINTS, 4, GL_UNSIGNED_INT, (void*)(100 * sizeof(GLuint)));
+		glPointSize(1.0f);
 
-	glm::vec4 positionColor(0.0f, 1.0f, 0.0f, 1.0f); // Green color for point moving along the line
-	glUniform4fv(glGetUniformLocation(gProgram[2], "color"), 1, &positionColor[0]);
-	glPointSize(15.0f);
-	//glDrawElements(GL_POINTS, 1, GL_UNSIGNED_INT, (void*)(104 * sizeof(GLuint)));
-	glPointSize(1.0f);
+		glm::vec4 positionColor(1.0f, 0.0f, 0.0f, 1.0f); // Blue color for point moving along the line
+		glUniform4fv(glGetUniformLocation(gProgram[2], "color"), 1, &positionColor[0]);
+		glPointSize(15.0f);
+		//glDrawElements(GL_POINTS, 1, GL_UNSIGNED_INT, (void*)(104 * sizeof(GLuint)));
+		glPointSize(1.0f);
 
-	glm::vec4 tangentColor(0.0f, 1.0f, 0.0f, 1.0f); // Green color for tangent
-	glUniform4fv(glGetUniformLocation(gProgram[2], "color"), 1, &tangentColor[0]);
-	glLineWidth(3.0f);
-	glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, (void*)(104 * sizeof(GLuint)));
-	glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, (void*)(106 * sizeof(GLuint)));
-	glLineWidth(1.0f);
+		glm::vec4 tangentColor(0.0f, 1.0f, 1.0f, 1.0f);
+		glUniform4fv(glGetUniformLocation(gProgram[2], "color"), 1, &tangentColor[0]);
+		glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, (void*)(104 * sizeof(GLuint)));
+		glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, (void*)(106 * sizeof(GLuint)));
+	}
 }
 
 void updateMeshModelingMatrix();
@@ -647,68 +660,8 @@ void display()
 	glClearStencil(0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-	static float angle = 0;
-
-	float angleRad = (float)(angle / 180.0) * M_PI;
-
-	// Compute the modeling matrix
-
-	//modelingMatrix = glm::translate(glm::mat4(1.0), glm::vec3(0.0f, -0.4f, -5.0f));
-	//modelingMatrix = glm::rotate(modelingMatrix, angleRad, glm::vec3(0.0, 1.0, 0.0));
-	// glm::vec3 translationVector = bezierCurveGenerator.currentCurveCoordinates[bezierCurveGenerator.currentTIndex] - objectCenter;
-	// translationVector += glm::vec3(0.0f, 0.25f, -5.0f);
-	// glm::mat4 matT = glm::translate(glm::mat4(1.0),translationVector);
-	//glm::mat4 matR = glm::rotate(glm::mat4(1.0), angleRad, glm::vec3(0.0, 1.0, 0.0));
-	//glm::mat4 matRx = glm::rotate<float>(glm::mat4(1.0), (-90. / 180.) * M_PI, glm::vec3(1.0, 0.0, 0.0));
-	//glm::mat4 matRy = glm::rotate<float>(glm::mat4(1.0), (-90. / 180.) * M_PI, glm::vec3(0.0, 1.0, 0.0));
-	//glm::mat4 matRz = glm::rotate<float>(glm::mat4(1.0), angleRad, glm::vec3(0.0, 0.0, 1.0));
-	//modelingMatrix = matRy * matRx;
-	//modelingMatrix = glm::mat4(1.0f);
-
-	// Let's make some alternating roll rotation
-	static float rollDeg = 0;
-	static float changeRoll = 2.5;
-	float rollRad = (float)(rollDeg / 180.f) * M_PI;
-	rollDeg += changeRoll;
-	if (rollDeg >= 10.f || rollDeg <= -10.f)
-	{
-		changeRoll *= -1.f;
-	}
-	glm::mat4 matRoll = glm::rotate<float>(glm::mat4(1.0), rollRad, glm::vec3(1.0, 0.0, 0.0));
-
-	// Let's make some pitch rotation
-	static float pitchDeg = 0;
-	static float changePitch = 0.1;
-	float startPitch = 0;
-	float endPitch = 90;
-	float pitchRad = (float)(pitchDeg / 180.f) * M_PI;
-	pitchDeg += changePitch;
-	if (pitchDeg >= endPitch)
-	{
-		changePitch = 0;
-	}
-	//glm::mat4 matPitch = glm::rotate<float>(glm::mat4(1.0), pitchRad, glm::vec3(0.0, 0.0, 1.0));
-	//modelingMatrix = matRoll * matPitch * modelingMatrix; // gimbal lock
-	//modelingMatrix = matPitch * matRoll * modelingMatrix;   // no gimbal lock
-
-	glm::quat q0(0, 1, 0, 0); // along x
-	glm::quat q1(0, 0, 1, 0); // along y
-	glm::quat q = glm::mix(q0, q1, (pitchDeg - startPitch) / (endPitch - startPitch));
-
-	float sint = sin(rollRad / 2);
-	glm::quat rollQuat(cos(rollRad / 2), sint * q.x, sint * q.y, sint * q.z);
-	glm::quat pitchQuat(cos(pitchRad / 2), 0, 0, 1 * sin(pitchRad / 2));
-	//modelingMatrix = matT * glm::toMat4(pitchQuat) * glm::toMat4(rollQuat) * modelingMatrix;
-	// modelingMatrix = matT * glm::toMat4(rollQuat) * glm::toMat4(pitchQuat) * modelingMatrix; // roll is based on pitch
-
-	updateMeshModelingMatrix();
-
-	//cout << rollQuat.w << " " << rollQuat.x << " " << rollQuat.y << " " << rollQuat.z << endl;
-
 	// Draw the scene
 	drawScene();
-
-	angle += 0.5;
 }
 
 void reshape(GLFWwindow* window, int w, int h)
@@ -747,9 +700,15 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
 	}
-	else if (key == GLFW_KEY_F && action == GLFW_PRESS)
+	else if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
 	{
-		//glShadeModel(GL_FLAT);
+		shouldStop = !shouldStop;
+	}
+	else if (key == GLFW_KEY_P && action == GLFW_PRESS) {
+		shouldDrawCurve = !shouldDrawCurve;
+	}
+	else if (key == GLFW_KEY_W && action == GLFW_PRESS) {
+		isWireframeMode = !isWireframeMode;
 	}
 }
 
@@ -797,11 +756,14 @@ void mainLoop(GLFWwindow* window)
 {
 	while (!glfwWindowShouldClose(window))
 	{
+		if (!shouldStop) {
+			updateMeshModelingMatrix();
+			updateObjectPosition();
+		}
+
 		display();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-
-		updateObjectPosition();
 	}
 }
 
@@ -895,13 +857,14 @@ void updateMeshModelingMatrix() {
 	glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), translationVector);
 
 	// Roll the object alternatively by using quaternions
-	static float time = 0.0f;
-	float rollAngle = 45.0f * sin(time);
+	static float rollAngle = 0.0f;
+	static float deltaAngle = 0.8f;
 	float rollAngleRad = glm::radians(rollAngle);
 	glm::quat rollQuaternion = glm::angleAxis(rollAngleRad, bezierCurveGenerator.currentCurveTangent);
 	glm::mat4 rollMatrix = glm::mat4_cast(rollQuaternion);
-	time += 0.025;
-	if (time > 10.0f) time = 0.0f;
+	if (rollAngle > 45.0f) deltaAngle = -0.8f;
+	if (rollAngle < -45.0f) deltaAngle = 0.8f;
+	rollAngle += deltaAngle;
 
 	// Apply the roll transformation to the modeling matrix
 	modelingMatrix = translationMatrix * rollMatrix * rotationMatrix * flipMatrix * scaleMatrix;

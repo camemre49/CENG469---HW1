@@ -100,7 +100,7 @@ public:
         filename = fileName;
     }
 
-    void calculateAllBezierSurfaceVertices(int resolution = 30);
+    void calculateAllBezierSurfaceVertices(int resolution = 20);
 
     static std::vector<std::vector<glm::vec3>> calculateBezierSurfaceVertices(std::vector<std::vector<glm::vec3>> & surfaceBezierPoints, int resolution);
 
