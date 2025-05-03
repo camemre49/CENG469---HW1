@@ -4,15 +4,15 @@
 #include <iomanip>
 #include <iostream>
 
-std::vector<std::vector<glm::vec3>> PlaneMeshGenerator::calculateBezierSurfaceVertices(std::vector<std::vector<glm::vec3>> & surfaceBezierPoints, int resolution) {
+std::vector<std::vector<glm::vec3>> PlaneMeshGenerator::calculateBezierSurfaceVertices(std::vector<std::vector<glm::vec3>> & surfaceBezierPoints, int s, int t) {
     std::vector<std::vector<glm::vec3>> curveVertices = {};
     for (int i = 0; i < 4; i++) {
-        curveVertices.push_back(BezierCurveGenerator::calculateBezierCurveVerticesByPoints(surfaceBezierPoints[i], resolution));
+        curveVertices.push_back(BezierCurveGenerator::calculateBezierCurveVerticesByPoints(surfaceBezierPoints[i], t));
     }
     std::vector<std::vector<glm::vec3>> surfacePoints = {};
-    for (int i = 0; i < resolution; i++) {
+    for (int i = 0; i < t; i++) {
         std::vector<glm::vec3> curvePoints = {curveVertices[0][i], curveVertices[1][i], curveVertices[2][i], curveVertices[3][i]};
-        surfacePoints.push_back(BezierCurveGenerator::calculateBezierCurveVerticesByPoints(curvePoints, resolution));
+        surfacePoints.push_back(BezierCurveGenerator::calculateBezierCurveVerticesByPoints(curvePoints, s));
     }
 
     return surfacePoints;
@@ -24,31 +24,31 @@ void PlaneMeshGenerator::printSurfacePoints(std::vector<std::vector<glm::vec3>> 
     }
 }
 
-void PlaneMeshGenerator::calculateAllBezierSurfaceVertices(int resolution) {
+void PlaneMeshGenerator::calculateAllBezierSurfaceVertices(int s, int t) {
     surfaces.clear();
     for (auto& bezierPointGroup : bezierPoints) {
-    surfaces.push_back(generateBezierSurface(bezierPointGroup, resolution));
+    surfaces.push_back(generateBezierSurface(bezierPointGroup, s, t));
     }
     exportAllSurfacesToOBJ(surfaces, filename);
 }
 
-BezierSurface PlaneMeshGenerator::generateBezierSurface(std::vector<std::vector<glm::vec3>>& controlPoints, int resolution) {
+BezierSurface PlaneMeshGenerator::generateBezierSurface(std::vector<std::vector<glm::vec3>>& controlPoints, int s, int t) {
     BezierSurface surface;
 
-    auto surfaceGrid = calculateBezierSurfaceVertices(controlPoints, resolution);
+    auto surfaceGrid = calculateBezierSurfaceVertices(controlPoints, s, t);
     for (const auto& row : surfaceGrid) {
         surface.vertices.insert(surface.vertices.end(), row.begin(), row.end());
     }
 
     // surface.vertices => curve1.vertices, curve2.vertices, curve3.vertices, ...
     // Create vertices by using simple triangle way
-    for (int row = 0; row < resolution - 1; row++) {
-        for (int col = 0; col < resolution - 1; col++) {
+    for (int row = 0; row < t - 1; row++) {
+        for (int col = 0; col < s - 1; col++) {
             // Current quad indices
-            int topLeft = row * resolution + col;
-            int topRight = row * resolution + col + 1;
-            int bottomLeft = (row + 1) * resolution + col;
-            int bottomRight = (row + 1) * resolution + col + 1;
+            int topLeft = row * s + col;
+            int topRight = row * s + col + 1;
+            int bottomLeft = (row + 1) * s + col;
+            int bottomRight = (row + 1) * s + col + 1;
 
             // Triangle 1 (top-left to bottom-right)
             surface.indices.push_back(topLeft);

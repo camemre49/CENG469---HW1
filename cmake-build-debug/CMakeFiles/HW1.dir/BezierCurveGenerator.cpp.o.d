@@ -1,6 +1,7 @@
 CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o: \
- /home/emre/Desktop/HW1/BezierCurveGenerator.cpp \
- /usr/include/stdc-predef.h /home/emre/Desktop/HW1/BezierCurveGenerator.h \
+ /home/emre/Desktop/CENG469\ -HW1/HW1/BezierCurveGenerator.cpp \
+ /usr/include/stdc-predef.h \
+ /home/emre/Desktop/CENG469\ -HW1/HW1/BezierCurveGenerator.h \
  /usr/include/c++/13/vector /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \

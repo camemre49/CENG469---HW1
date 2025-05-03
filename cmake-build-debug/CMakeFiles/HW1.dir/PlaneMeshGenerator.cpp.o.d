@@ -1,7 +1,8 @@
 CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o: \
- /home/emre/Desktop/HW1/PlaneMeshGenerator.cpp /usr/include/stdc-predef.h \
- /home/emre/Desktop/HW1/PlaneMeshGenerator.h /usr/include/c++/13/string \
- /usr/include/c++/13/bits/requires_hosted.h \
+ /home/emre/Desktop/CENG469\ -HW1/HW1/PlaneMeshGenerator.cpp \
+ /usr/include/stdc-predef.h \
+ /home/emre/Desktop/CENG469\ -HW1/HW1/PlaneMeshGenerator.h \
+ /usr/include/c++/13/string /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -235,7 +236,7 @@ CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o: \
  /usr/include/glm/ext/matrix_double4x4_precision.hpp \
  /usr/include/glm/ext/matrix_float4x4.hpp \
  /usr/include/glm/ext/matrix_float4x4_precision.hpp \
- /home/emre/Desktop/HW1/BezierCurveGenerator.h \
+ /home/emre/Desktop/CENG469\ -HW1/HW1/BezierCurveGenerator.h \
  /usr/include/c++/13/fstream /usr/include/c++/13/istream \
  /usr/include/c++/13/ios /usr/include/c++/13/exception \
  /usr/include/c++/13/bits/exception_ptr.h \

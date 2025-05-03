@@ -769,7 +769,9 @@ void mainLoop(GLFWwindow* window)
 
 int main(int argc, char** argv)   // Create Main Function For Bringing It All Together
 {
-	bezierMeshGenerator.calculateAllBezierSurfaceVertices();
+	int s = std::atoi(argv[1]);
+	int t = std::atoi(argv[2]);
+	bezierMeshGenerator.calculateAllBezierSurfaceVertices(s, t);
 
 	GLFWwindow* window;
 	if (!glfwInit())

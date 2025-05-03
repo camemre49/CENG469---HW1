@@ -1,5 +1,6 @@
-CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
- /usr/include/stdc-predef.h /usr/include/c++/13/cstdio \
+CMakeFiles/HW1.dir/main.cpp.o: \
+ /home/emre/Desktop/CENG469\ -HW1/HW1/main.cpp /usr/include/stdc-predef.h \
+ /usr/include/c++/13/cstdio \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -343,9 +344,10 @@ CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp \
  /usr/include/glm/detail/setup.hpp \
  /usr/include/glm/gtx/component_wise.inl /usr/include/glm/gtx/norm.inl \
  /usr/include/glm/gtx/quaternion.inl \
- /home/emre/Desktop/HW1/BezierCurveGenerator.h \
- /home/emre/Desktop/HW1/PlaneMeshGenerator.h \
- /home/emre/Desktop/HW1/stb_image.h /usr/include/c++/13/stdlib.h \
+ /home/emre/Desktop/CENG469\ -HW1/HW1/BezierCurveGenerator.h \
+ /home/emre/Desktop/CENG469\ -HW1/HW1/PlaneMeshGenerator.h \
+ /home/emre/Desktop/CENG469\ -HW1/HW1/stb_image.h \
+ /usr/include/c++/13/stdlib.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/emmintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/mmintrin.h \

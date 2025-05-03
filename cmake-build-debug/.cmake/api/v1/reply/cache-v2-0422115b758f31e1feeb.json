@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/emre/Desktop/HW1/cmake-build-debug"
+			"value" : "/home/emre/Desktop/CENG469 -HW1/HW1/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -543,7 +543,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/emre/Desktop/HW1/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/home/emre/Desktop/CENG469 -HW1/HW1/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -603,7 +603,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/emre/Desktop/HW1"
+			"value" : "/home/emre/Desktop/CENG469 -HW1/HW1"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1262,18 +1262,6 @@
 			"value" : "/usr/lib/x86_64-linux-gnu/libGLEW.a"
 		},
 		{
-			"name" : "GLFW3_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "The directory containing a CMake configuration file for GLFW3."
-				}
-			],
-			"type" : "PATH",
-			"value" : "GLFW3_DIR-NOTFOUND"
-		},
-		{
 			"name" : "HW1_BINARY_DIR",
 			"properties" : 
 			[
@@ -1283,7 +1271,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/emre/Desktop/HW1/cmake-build-debug"
+			"value" : "/home/emre/Desktop/CENG469 -HW1/HW1/cmake-build-debug"
 		},
 		{
 			"name" : "HW1_IS_TOP_LEVEL",
@@ -1307,7 +1295,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/emre/Desktop/HW1"
+			"value" : "/home/emre/Desktop/CENG469 -HW1/HW1"
 		},
 		{
 			"name" : "OPENGL_EGL_INCLUDE_DIR",

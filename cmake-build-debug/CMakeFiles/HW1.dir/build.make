@@ -53,10 +53,10 @@ RM = /home/emre/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bi
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/emre/Desktop/HW1
+CMAKE_SOURCE_DIR = "/home/emre/Desktop/CENG469 -HW1/HW1"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/emre/Desktop/HW1/cmake-build-debug
+CMAKE_BINARY_DIR = "/home/emre/Desktop/CENG469 -HW1/HW1/cmake-build-debug"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/HW1.dir/depend.make
@@ -70,46 +70,46 @@ include CMakeFiles/HW1.dir/progress.make
 include CMakeFiles/HW1.dir/flags.make
 
 CMakeFiles/HW1.dir/main.cpp.o: CMakeFiles/HW1.dir/flags.make
-CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/HW1/main.cpp
+CMakeFiles/HW1.dir/main.cpp.o: /home/emre/Desktop/CENG469\ -HW1/HW1/main.cpp
 CMakeFiles/HW1.dir/main.cpp.o: CMakeFiles/HW1.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/emre/Desktop/HW1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/HW1.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/HW1.dir/main.cpp.o -MF CMakeFiles/HW1.dir/main.cpp.o.d -o CMakeFiles/HW1.dir/main.cpp.o -c /home/emre/Desktop/HW1/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/emre/Desktop/CENG469 -HW1/HW1/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/HW1.dir/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/HW1.dir/main.cpp.o -MF CMakeFiles/HW1.dir/main.cpp.o.d -o CMakeFiles/HW1.dir/main.cpp.o -c "/home/emre/Desktop/CENG469 -HW1/HW1/main.cpp"
 
 CMakeFiles/HW1.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/HW1.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/emre/Desktop/HW1/main.cpp > CMakeFiles/HW1.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/emre/Desktop/CENG469 -HW1/HW1/main.cpp" > CMakeFiles/HW1.dir/main.cpp.i
 
 CMakeFiles/HW1.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/HW1.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/emre/Desktop/HW1/main.cpp -o CMakeFiles/HW1.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/emre/Desktop/CENG469 -HW1/HW1/main.cpp" -o CMakeFiles/HW1.dir/main.cpp.s
 
 CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o: CMakeFiles/HW1.dir/flags.make
-CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o: /home/emre/Desktop/HW1/BezierCurveGenerator.cpp
+CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o: /home/emre/Desktop/CENG469\ -HW1/HW1/BezierCurveGenerator.cpp
 CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o: CMakeFiles/HW1.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/emre/Desktop/HW1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o -MF CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o.d -o CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o -c /home/emre/Desktop/HW1/BezierCurveGenerator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/emre/Desktop/CENG469 -HW1/HW1/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o -MF CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o.d -o CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.o -c "/home/emre/Desktop/CENG469 -HW1/HW1/BezierCurveGenerator.cpp"
 
 CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/emre/Desktop/HW1/BezierCurveGenerator.cpp > CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/emre/Desktop/CENG469 -HW1/HW1/BezierCurveGenerator.cpp" > CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.i
 
 CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/emre/Desktop/HW1/BezierCurveGenerator.cpp -o CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/emre/Desktop/CENG469 -HW1/HW1/BezierCurveGenerator.cpp" -o CMakeFiles/HW1.dir/BezierCurveGenerator.cpp.s
 
 CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o: CMakeFiles/HW1.dir/flags.make
-CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o: /home/emre/Desktop/HW1/PlaneMeshGenerator.cpp
+CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o: /home/emre/Desktop/CENG469\ -HW1/HW1/PlaneMeshGenerator.cpp
 CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o: CMakeFiles/HW1.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/emre/Desktop/HW1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o -MF CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o.d -o CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o -c /home/emre/Desktop/HW1/PlaneMeshGenerator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/emre/Desktop/CENG469 -HW1/HW1/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o -MF CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o.d -o CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.o -c "/home/emre/Desktop/CENG469 -HW1/HW1/PlaneMeshGenerator.cpp"
 
 CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/emre/Desktop/HW1/PlaneMeshGenerator.cpp > CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/emre/Desktop/CENG469 -HW1/HW1/PlaneMeshGenerator.cpp" > CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.i
 
 CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/emre/Desktop/HW1/PlaneMeshGenerator.cpp -o CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/emre/Desktop/CENG469 -HW1/HW1/PlaneMeshGenerator.cpp" -o CMakeFiles/HW1.dir/PlaneMeshGenerator.cpp.s
 
 # Object files for target HW1
 HW1_OBJECTS = \
@@ -129,7 +129,7 @@ HW1: /usr/lib/x86_64-linux-gnu/libglfw.so.3.3
 HW1: /usr/lib/x86_64-linux-gnu/libGLX.so
 HW1: /usr/lib/x86_64-linux-gnu/libOpenGL.so
 HW1: CMakeFiles/HW1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/emre/Desktop/HW1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable HW1"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/home/emre/Desktop/CENG469 -HW1/HW1/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable HW1"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/HW1.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -141,6 +141,6 @@ CMakeFiles/HW1.dir/clean:
 .PHONY : CMakeFiles/HW1.dir/clean
 
 CMakeFiles/HW1.dir/depend:
-	cd /home/emre/Desktop/HW1/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/emre/Desktop/HW1 /home/emre/Desktop/HW1 /home/emre/Desktop/HW1/cmake-build-debug /home/emre/Desktop/HW1/cmake-build-debug /home/emre/Desktop/HW1/cmake-build-debug/CMakeFiles/HW1.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd "/home/emre/Desktop/CENG469 -HW1/HW1/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/emre/Desktop/CENG469 -HW1/HW1" "/home/emre/Desktop/CENG469 -HW1/HW1" "/home/emre/Desktop/CENG469 -HW1/HW1/cmake-build-debug" "/home/emre/Desktop/CENG469 -HW1/HW1/cmake-build-debug" "/home/emre/Desktop/CENG469 -HW1/HW1/cmake-build-debug/CMakeFiles/HW1.dir/DependInfo.cmake" "--color=$(COLOR)"
 .PHONY : CMakeFiles/HW1.dir/depend
 

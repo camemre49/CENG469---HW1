@@ -27,7 +27,7 @@ P = {
     P7 = translateBezier(rotateBezier(rotateBezier(bezierHalfConvex(1, 1.7, 0.75, 20, 4), 90, 'z'), 90, 'y'), R*0.9, 0, 3.5),
     P8 = translateBezier(rotateBezier(rotateBezier(bezierHalfConvex(1, 1.7, 0.75, 20, 4), 90, 'z'), -90, 'y'), -R*0.9, 0, 3.5),
     P9 = translateBezier(rotateBezier(rotateBezier(bezierHalfConvex(1, 2.3, 5, 10, 4), 90, 'x'), -90, 'y'), 0, -R*0.90, 6),
-    
+
     P10 = translateBezier(rotateBezier(rotateBezier(bezierHalfConvex(0.3, 4, 0.75, 1.5, 0.3), 90, 'z'), -50, 'x'), 0, -2.8, -1.5),
     P11 = translateBezier(rotateBezier(rotateBezier(bezierHalfConvex(0.3, 4, 0.75, 1.5, 0.3), 90, 'z'), 130, 'x'), 0, -2.8, -1.5),
 

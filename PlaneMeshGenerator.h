@@ -100,13 +100,13 @@ public:
         filename = fileName;
     }
 
-    void calculateAllBezierSurfaceVertices(int resolution = 20);
+    void calculateAllBezierSurfaceVertices(int s = 20, int t = 20);
 
-    static std::vector<std::vector<glm::vec3>> calculateBezierSurfaceVertices(std::vector<std::vector<glm::vec3>> & surfaceBezierPoints, int resolution);
+    static std::vector<std::vector<glm::vec3>> calculateBezierSurfaceVertices(std::vector<std::vector<glm::vec3>> & surfaceBezierPoints, int s, int t);
 
     static void printSurfacePoints(std::vector<std::vector<glm::vec3>> & surfaceBezierVertices);
 
-    static BezierSurface generateBezierSurface(std::vector<std::vector<glm::vec3>>& controlPoints, int resolution);
+    static BezierSurface generateBezierSurface(std::vector<std::vector<glm::vec3>>& controlPoints, int s, int t);
 
     static void exportAllSurfacesToOBJ(const std::vector<BezierSurface>& surfaces, const std::string& filename);
 
